@@ -64,6 +64,14 @@ public function login(Request  $request){
                 'errors'=>$validateUser->errors()
             ], 401);
         }
+            $user = User::where('email', $request->email)->first();
+
+            return response()->json([
+                'status'=>true,
+                'message'=>'User logged in successfully',
+                'data'=>$user->all()
+            ], 401);
+        
         if(!Auth::attempt($request->only(['email', 'password']))){
             return response()->json([
                 'status'=>false,
