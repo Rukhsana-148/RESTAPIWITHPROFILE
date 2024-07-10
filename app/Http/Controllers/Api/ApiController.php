@@ -13,6 +13,7 @@ class ApiController extends Controller
     //
 
     public function register(Request $request){
+        try{
             $validateUser = Validator::make($request->all(),[
                 'name'=>'required',
                 'email'=>'required|email|unique:users,email',
@@ -38,5 +39,12 @@ class ApiController extends Controller
                 'message'=>'User created successfully',
                 'data'=>$user->all()
             ], 401);
-    }
+    }catch(Throwable $th){
+        return response()->json([
+            'status'=>false,
+            'message'=>$th->getMessage(),
+           
+        ], 500);
+    };
+}
 }
