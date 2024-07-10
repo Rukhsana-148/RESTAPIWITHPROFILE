@@ -98,4 +98,13 @@ public function profile(){
         ],401);
 
     }
+
+    public function logout(){
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'status'=>true,
+            'message'=>'Logged Out',
+           
+        ],401);
+    }
 }

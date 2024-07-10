@@ -12,4 +12,6 @@ Route::group([
     "middleware"=>['auth:sanctum']
 ], function(){
     Route::get("profile", [ApiController::class, "profile"]);
+    Route::get("logout", [ApiController::class, "logout"]);
+
 });
