@@ -47,4 +47,29 @@ class ApiController extends Controller
         ], 500);
     };
 }
+
+public function login(Request  $request){
+    try{
+        $validateUser = Validator::make($request->all(),[
+       
+            'email'=>'required|email',
+            'password'=>'required',
+        ]
+        );
+
+        if($validateUser->fails()){
+            return response()->json([
+                'status'=>false,
+                'message'=>'validation error',
+                'errors'=>$validateUser->errors()
+            ], 401);
+        }
+    }catch(\Throwable $th){
+        return response()->json([
+            'status'=>false,
+            'message'=>$th->getMessage(),
+           
+        ], 500);
+    };
+}
 }
