@@ -69,7 +69,7 @@ public function login(Request  $request){
             return response()->json([
                 'status'=>true,
                 'message'=>'User logged in successfully',
-                'data'=>$user->all()
+                'data'=>$user->createToken('API Token')->plainTextToken
             ], 401);
         
         if(!Auth::attempt($request->only(['email', 'password']))){
@@ -87,4 +87,15 @@ public function login(Request  $request){
         ], 500);
     };
 }
+
+public function profile(){
+        $user = Auth::user();
+        
+        return response()->json([
+            'status'=>true,
+            'message'=>'successfully showed',
+            'data'=>$user->all()
+        ],401);
+
+    }
 }
