@@ -64,6 +64,13 @@ public function login(Request  $request){
                 'errors'=>$validateUser->errors()
             ], 401);
         }
+        if(!Auth::attempt($request->only(['email', 'password']))){
+            return response()->json([
+                'status'=>false,
+                'message'=>'Email and Password not matched',
+                
+            ], 401);
+        }
     }catch(\Throwable $th){
         return response()->json([
             'status'=>false,
